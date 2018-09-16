@@ -14,6 +14,10 @@ class GuestTest < Minitest::Test
     assert_equal("Leah", @guest.name)
   end
 
+  def test_can_get_guest_favorite_song
+    assert_equal("Somebody to Love", @guest.fave_song.title())
+  end
+
   def test_can_get_wallet_balance
     assert_equal(20, @guest.wallet)
   end

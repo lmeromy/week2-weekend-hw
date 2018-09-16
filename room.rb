@@ -4,7 +4,7 @@ class Room
 
   attr_reader :room_name, :capacity
 
-  attr_accessor :guests, :playlist
+  attr_accessor :guests, :playlist, :till
 
   def initialize(room_name, guests, playlist, capacity)
     @room_name = room_name
@@ -19,6 +19,7 @@ class Room
     if @guests.length() < @capacity
       guest.spend_money(@fee)
       @guests << guest
+      @till += @fee
       #binding.pry
     else
       return "I'm sorry, this room is full :(. Try a different room!"
@@ -34,14 +35,12 @@ class Room
     @playlist << song
   end
 
-  def play_song(song)
-    return "Saweeet! Who's gonna sing '#{song.title()}' by #{song.artist()}?!?!"
-    #### must test this! maybe need to create a separate function!?
-    for guest in @guests
-      if song.title() == guest.fave_song()
-        p "#{guest.name()}: #{guest.favorite_song()}"
+  def play_song(guest, song)
+      if guest.fave_song.title() == song.title()
+        return "#{guest.name()}: #{guest.favorite_song()}"
+      else
+        return "Saweeet! #{guest.name()} is gonna sing '#{song.title()}' by #{song.artist()}!"
       end
-    end
   end
 
 
@@ -49,8 +48,9 @@ class Room
   ### Extensions Completed #####
 
   # limit number of guests in room
-  # impose fee on guests, guests pay the fee
-  # almost....when favorite song is played, guest says Yay, etc!
+  # impose fee on guests, guests pay the fee,
+  # Room till increases by fee
+  # when favorite song is played, guest reacts
 
 
 
